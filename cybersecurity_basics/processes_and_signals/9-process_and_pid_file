@@ -2,7 +2,7 @@
 # very long comment
 echo $$ > /tmp/myscript.pid
 
-trap "echo 'Y U no love me ?!'" SIGINT
+trap "echo 'Y U no love me?!'" SIGINT
 
 trap "rm /tmp/myscrript.pid; exit" SIGQUIT
 
