@@ -1,17 +1,24 @@
 #!/usr/bin/env bash 
 # very long comment
-echo $$ > /tmp/myscript.pid
 
-trap "echo 'Y U no love me?!'" SIGINT
+PID_FILE="/tmp/myscript.pid"
+echo $$ > "$PID_FILE"
 
-trap "rm /tmp/myscrript.pid; exit" SIGQUIT
+handle_sigterm() {
+	echo "I hate the kill command"
+	rm -f "$PID_FILE"
+	exit 0
+}
 
-trap "echo 'I hate the kill command'; rm /tmp/myscripts.pid; exit" SIGTERM 
-trap "rm /tmp/myscript.pid; exit" SIGQUIT
+handle_sigint() {
+	echo "Y U no love me?!"
+}
+
+trap 'handle_sigterm' SIGTERM SIGQUIT
+trap 'hangle_sigint' SIGINT
 
 while true 
 do
 	echo "To infinity and beyond"
-	sleep 2 &
-	wait $!
+	sleep 2 
 done 
