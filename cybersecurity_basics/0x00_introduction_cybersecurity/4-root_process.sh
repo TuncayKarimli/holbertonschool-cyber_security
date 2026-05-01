@@ -1,2 +1,2 @@
 #!/bin/bash
-ps -u $1 | grep -v "VSZ\|^ *[0-9]* *[0-9]* *0 *0"
+ps -u $1 -o user,pid,%cpu,%mem,vsz,rss,tt,stat,start,time,command | grep -v " 0 "
