@@ -1,2 +1,2 @@
 #!/bin/bash
-xxd -r -p <<< "$(printf "%02x " $(base64 -d <<< "${1#"{xor}"}" | xxd -p | fold -w2 | awk '{print xor(strtonum("0x"$1), 95)}'))"
+python3 -c 'import sys, base64; print("".join(chr(b ^ 95) for b in base64.b64decode(sys.argv[1][5:] if sys.argv[1].startswith("{xor}") else sys.argv[1])))' "$1"
